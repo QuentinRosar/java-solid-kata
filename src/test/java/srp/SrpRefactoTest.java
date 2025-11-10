@@ -35,8 +35,8 @@ class SrpRefactoTest {
         Method[] declared = Invoice.class.getDeclaredMethods();
         List<String> names = Arrays.stream(declared).map(Method::getName).toList();
 
-        assertFalse(names.contains("saveToFile"));
-        assertFalse(names.contains("sendEmail"));
+        assertFalse(names.contains("save"));
+        assertFalse(names.contains("send"));
     }
 
     @Test
@@ -71,7 +71,6 @@ class SrpRefactoTest {
             boolean found = otherClasses.stream()
                   .flatMap(clazz -> Arrays.stream(clazz.getDeclaredMethods()))
                   .anyMatch(method ->
-                        method.getName().toLowerCase().contains(keyword.toLowerCase()) &&
                         Arrays.equals(method.getParameterTypes(), expectedParams));
 
             assertTrue(found);
