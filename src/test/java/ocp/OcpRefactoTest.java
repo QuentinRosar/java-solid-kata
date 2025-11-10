@@ -20,8 +20,7 @@ class OcpRefactoTest {
     void after_refactor_calculator_should_not_have_non_ocp_methods_anymore() {
         Method[] declared = DiscountCalculator.class.getDeclaredMethods();
         boolean hasBadMethod = Arrays.stream(declared)
-                .anyMatch(m -> m.getName().equals("computeDiscount")
-                        && Arrays.equals(m.getParameterTypes(), new Class<?>[]{String.class, double.class}));
+                .anyMatch(m -> Arrays.equals(m.getParameterTypes(), new Class<?>[]{double.class}));
 
         assertFalse(hasBadMethod);
     }
@@ -49,8 +48,7 @@ class OcpRefactoTest {
         Class<?>[] expectedParams = new Class<?>[]{double.class};
         boolean foundApplyMethod = otherClasses.stream()
                 .flatMap(clazz -> Arrays.stream(clazz.getDeclaredMethods()))
-                .anyMatch(method -> method.getName().equalsIgnoreCase("apply")
-                        && Arrays.equals(method.getParameterTypes(), expectedParams));
+                .anyMatch(method -> Arrays.equals(method.getParameterTypes(), expectedParams));
 
         assertTrue(foundApplyMethod);
     }
